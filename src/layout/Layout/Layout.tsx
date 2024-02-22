@@ -59,7 +59,7 @@ export const Layout: FC<LayoutProps> = () => {
 					Выход
 				</Button>
 			</div>
-			<div>
+			<div className={styles.content}>
 				<Outlet />
 			</div>
 		</div>
