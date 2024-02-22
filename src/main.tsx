@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
 import { Cart, Error, Menu } from '@/pages'
 
-import { Layout } from '@/layout/Menu/Menu'
+import { Layout } from '@/layout'
 
 import './index.scss'
 
