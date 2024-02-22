@@ -1,0 +1,1 @@
+  npx generate-react-cli component Header (--type=page --type=layout)
