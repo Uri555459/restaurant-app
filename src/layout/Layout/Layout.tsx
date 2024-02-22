@@ -24,7 +24,7 @@ export const Layout: FC<LayoutProps> = () => {
 				<div className={styles.menu}>
 					<NavLink
 						className={({ isActive }) =>
-							cn(styles.NavLink, {
+							cn(styles.link, {
 								[styles.active]: isActive
 							})
 						}
@@ -38,7 +38,7 @@ export const Layout: FC<LayoutProps> = () => {
 					</NavLink>
 					<NavLink
 						className={({ isActive }) =>
-							cn(styles.NavLink, {
+							cn(styles.link, {
 								[styles.active]: isActive
 							})
 						}
