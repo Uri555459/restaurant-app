@@ -9,6 +9,8 @@
 	"singleAttributePerLine": true,
 	"importOrder": [
 		"<THIRD_PARTY_MODULES>",
+		"^@/pages/(.*)$",
+		"^@/pages",
 		"^@/components/(.*)$",
 		"^@/components",
 		"^@/layout/(.*)$",

@@ -1,12 +1,11 @@
-import React, { FC } from 'react';
-import styles from './Error.module.scss';
+import type { FC } from 'react'
+
+import styles from './Error.module.scss'
 
 interface ErrorProps {}
 
 const Error: FC<ErrorProps> = () => (
-  <div className={styles.Error}>
-    Error Component
-  </div>
-);
+	<div className={styles.Error}>Error Page</div>
+)
 
-export default Error;
+export default Error
