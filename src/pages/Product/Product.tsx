@@ -1,13 +1,19 @@
-import type { FC } from 'react'
-import { useParams } from 'react-router-dom'
+import { type FC, Suspense } from 'react'
+import { Await, useLoaderData } from 'react-router-dom'
 
-import styles from './Product.module.scss'
+import { IProduct } from '@/types/product.interface'
 
 interface ProductProps {}
 
 const Product: FC<ProductProps> = () => {
-	const { id } = useParams()
-	return <div className={styles.Product}>Product {id}</div>
+	const data = useLoaderData() as { data: IProduct }
+	return (
+		<Suspense fallback={'Загружаю...'}>
+			<Await resolve={data.data}>
+				{({ data }: { data: IProduct }) => <>Product - {data.name}</>}
+			</Await>
+		</Suspense>
+	)
 }
 
 export default Product

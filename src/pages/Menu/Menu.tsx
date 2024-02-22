@@ -2,6 +2,8 @@ import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
+import { MenuList } from '@/pages/Menu/MenuList/MenuList'
+
 import { Heading, Search } from '@/components'
 
 import { PREFIX } from '@/helpers/api'
@@ -9,7 +11,6 @@ import { PREFIX } from '@/helpers/api'
 import { IProduct } from '@/types/product.interface'
 
 import styles from './Menu.module.scss'
-import { MenuList } from './MenuList/MenuList'
 
 interface MenuProps {}
 
