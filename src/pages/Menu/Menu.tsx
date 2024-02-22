@@ -1,20 +1,22 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
-import { Heading, ProductCard, Search } from '@/components'
+import { Heading, Search } from '@/components'
 
 import { PREFIX } from '@/helpers/api'
 
 import { IProduct } from '@/types/product.interface'
 
 import styles from './Menu.module.scss'
+import { MenuList } from './MenuList/MenuList'
 
 interface MenuProps {}
 
 const Menu: FC<MenuProps> = () => {
 	const [products, setProducts] = useState<IProduct[]>([])
 	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [error, setError] = useState<string | undefined>()
 
 	const getMenu = async () => {
 		try {
@@ -24,6 +26,10 @@ const Menu: FC<MenuProps> = () => {
 		} catch (error) {
 			setIsLoading(false)
 			console.error(error)
+			if (error instanceof AxiosError) {
+				setError(error.message)
+			}
+			return
 		}
 	}
 
@@ -38,19 +44,9 @@ const Menu: FC<MenuProps> = () => {
 				<Search placeholder='Введите блюдо или состав' />
 			</div>
 			<div>
-				{!isLoading &&
-					products.map(product => (
-						<ProductCard
-							key={product.id}
-							id={product.id}
-							description={product.ingredients.join(',')}
-							image={product.image}
-							name={product.name}
-							price={product.price}
-							rating={product.rating}
-						/>
-					))}
 				{isLoading && <div>Загружаем продукты...</div>}
+				{error && <div>{error}</div>}
+				{!isLoading && <MenuList products={products} />}
 			</div>
 		</>
 	)
