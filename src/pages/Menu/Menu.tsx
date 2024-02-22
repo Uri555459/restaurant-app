@@ -14,12 +14,15 @@ interface MenuProps {}
 
 const Menu: FC<MenuProps> = () => {
 	const [products, setProducts] = useState<IProduct[]>([])
+	const [isLoading, setIsLoading] = useState<boolean>(true)
 
 	const getMenu = async () => {
 		try {
 			const { data } = await axios.get<IProduct[]>(`${PREFIX}/products`)
 			setProducts(data)
+			setIsLoading(false)
 		} catch (error) {
+			setIsLoading(false)
 			console.error(error)
 		}
 	}
@@ -35,17 +38,19 @@ const Menu: FC<MenuProps> = () => {
 				<Search placeholder='Введите блюдо или состав' />
 			</div>
 			<div>
-				{products.map(product => (
-					<ProductCard
-						key={product.id}
-						id={product.id}
-						description={product.ingredients.join(',')}
-						image={product.image}
-						name={product.name}
-						price={product.price}
-						rating={product.rating}
-					/>
-				))}
+				{!isLoading &&
+					products.map(product => (
+						<ProductCard
+							key={product.id}
+							id={product.id}
+							description={product.ingredients.join(',')}
+							image={product.image}
+							name={product.name}
+							price={product.price}
+							rating={product.rating}
+						/>
+					))}
+				{isLoading && <div>Загружаем продукты...</div>}
 			</div>
 		</>
 	)
