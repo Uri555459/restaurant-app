@@ -1,12 +1,37 @@
+import { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import { Heading, ProductCard, Search } from '@/components'
+
+import { PREFIX } from '@/helpers/api'
+
+import { IProduct } from '@/types/product.interface'
 
 import styles from './Menu.module.scss'
 
 interface MenuProps {}
 
 const Menu: FC<MenuProps> = () => {
+	const [products, setProducts] = useState<IProduct[]>([])
+
+	const getMenu = async () => {
+		try {
+			const res = await fetch(`${PREFIX}/products`)
+			if (!res.ok) {
+				return
+			}
+
+			const data = (await res.json()) as IProduct[]
+			setProducts(data)
+		} catch (error) {
+			console.error(error)
+		}
+	}
+
+	useEffect(() => {
+		getMenu()
+	}, [])
+
 	return (
 		<>
 			<div className={styles.head}>
@@ -14,14 +39,17 @@ const Menu: FC<MenuProps> = () => {
 				<Search placeholder='Введите блюдо или состав' />
 			</div>
 			<div>
-				<ProductCard
-					id={1}
-					description='Салями, руккола, помидоры, оливки'
-					image='/product-demo.png'
-					name='Наслаждение'
-					price={300}
-					rating={4.5}
-				/>
+				{products.map(product => (
+					<ProductCard
+						key={product.id}
+						id={product.id}
+						description={product.ingredients.join(',')}
+						image={product.image}
+						name={product.name}
+						price={product.price}
+						rating={product.rating}
+					/>
+				))}
 			</div>
 		</>
 	)
