@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
@@ -16,12 +17,7 @@ const Menu: FC<MenuProps> = () => {
 
 	const getMenu = async () => {
 		try {
-			const res = await fetch(`${PREFIX}/products`)
-			if (!res.ok) {
-				return
-			}
-
-			const data = (await res.json()) as IProduct[]
+			const { data } = await axios.get<IProduct[]>(`${PREFIX}/products`)
 			setProducts(data)
 		} catch (error) {
 			console.error(error)
