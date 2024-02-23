@@ -5,7 +5,7 @@ interface RequireAuthProps {
 	children: ReactNode
 }
 export const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
-	const jwt = null
+	const jwt = localStorage.getItem('jwt')
 
 	if (!jwt) {
 		return (
