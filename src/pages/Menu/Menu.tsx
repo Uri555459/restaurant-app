@@ -6,7 +6,7 @@ import { MenuList } from '@/pages/Menu/MenuList/MenuList'
 
 import { Heading, Search } from '@/components'
 
-import { PREFIX } from '@/helpers/api'
+import { PREFIX } from '@/helpers/API'
 
 import { IProduct } from '@/types/product.interface'
 

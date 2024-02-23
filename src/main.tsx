@@ -1,13 +1,14 @@
 import axios from 'axios'
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom'
 
-import { Cart, Error, Menu, Product } from '@/pages'
+import { Cart, Error, Login, Menu, Product, Register } from '@/pages'
 
-import { Layout } from '@/layout'
+import { AuthLayout, Layout } from '@/layout'
 
-import { PREFIX } from '@/helpers/api'
+import { PREFIX } from '@/helpers/API'
+import { RequireAuth } from '@/helpers/RequireAuth'
 
 import { IProduct } from '@/types/product.interface'
 
@@ -16,11 +17,19 @@ import './index.scss'
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Layout />,
+		element: (
+			<RequireAuth>
+				<Layout />
+			</RequireAuth>
+		),
 		children: [
 			{
 				path: '/',
-				element: <Menu />
+				element: (
+					<Suspense fallback={<>Загрузка...</>}>
+						<Menu />
+					</Suspense>
+				)
 			},
 			{
 				path: '/cart',
@@ -38,6 +47,20 @@ const router = createBrowserRouter([
 							.catch(error => error)
 					})
 				}
+			}
+		]
+	},
+	{
+		path: '/auth',
+		element: <AuthLayout />,
+		children: [
+			{
+				path: 'login',
+				element: <Login />
+			},
+			{
+				path: 'register',
+				element: <Register />
 			}
 		]
 	},
