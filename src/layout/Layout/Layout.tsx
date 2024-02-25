@@ -1,12 +1,12 @@
 import cn from 'clsx'
-import type { FC } from 'react'
+import { type FC, useEffect } from 'react'
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components'
 
-import { logout } from '@/store/features/user/userSlice'
+import { getProfile, logout, selectUser } from '@/store/features/user/userSlice'
 
-import { useAppDispatch } from '@/hooks/redux.hooks'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux.hooks'
 
 import styles from './Layout.module.scss'
 
@@ -15,11 +15,16 @@ interface LayoutProps {}
 export const Layout: FC<LayoutProps> = () => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
+	const { profile } = useAppSelector(selectUser)
 
 	const logoutStorage = () => {
 		dispatch(logout())
 		navigate('/auth/login')
 	}
+
+	useEffect(() => {
+		dispatch(getProfile())
+	}, [dispatch])
 
 	return (
 		<div className={styles.layout}>
@@ -30,8 +35,8 @@ export const Layout: FC<LayoutProps> = () => {
 						src='/avatar.png'
 						alt='Аватар пользователя'
 					/>
-					<div className={styles.name}>Web Developer</div>
-					<div className={styles.email}>test@test.ru</div>
+					<div className={styles.name}>{profile?.name}</div>
+					<div className={styles.email}>{profile?.email}</div>
 				</div>
 				<div className={styles.menu}>
 					<NavLink

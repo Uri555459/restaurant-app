@@ -11,9 +11,9 @@ import { AuthLayout, Layout } from '@/layout'
 import { PREFIX } from '@/helpers/API'
 import { RequireAuth } from '@/helpers/RequireAuth'
 
-import { IProduct } from '@/types/product.interface'
-
 import { store } from '@/store/store'
+
+import { IProduct } from '@/types/product.interface'
 
 import './index.scss'
 
