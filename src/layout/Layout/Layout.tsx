@@ -4,15 +4,21 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components'
 
+import { logout } from '@/store/features/user/userSlice'
+
+import { useAppDispatch } from '@/hooks/redux.hooks'
+
 import styles from './Layout.module.scss'
 
 interface LayoutProps {}
 
 export const Layout: FC<LayoutProps> = () => {
+	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
-	const logout = () => {
-		localStorage.removeItem('jwt')
-		navigate('auth/login')
+
+	const logoutStorage = () => {
+		dispatch(logout())
+		navigate('/auth/login')
 	}
 
 	return (
@@ -59,7 +65,7 @@ export const Layout: FC<LayoutProps> = () => {
 				</div>
 				<Button
 					className={styles.exit}
-					onClick={logout}
+					onClick={logoutStorage}
 				>
 					<img
 						src='/exit-icon.svg'

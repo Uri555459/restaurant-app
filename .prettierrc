@@ -16,7 +16,6 @@
 		"^@/layout/(.*)$",
 		"^@/layout",
 		"^@/helpers/(.*)$",
-		"^@/helpers",
 		"^@/ui/(.*)$",
 		"^@/providers/(.*)$",
 		"^@/constants/(.*)$",

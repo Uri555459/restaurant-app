@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
+import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom'
 
 import { Cart, Error, Login, Menu, Product, Register } from '@/pages'
@@ -11,6 +12,8 @@ import { PREFIX } from '@/helpers/API'
 import { RequireAuth } from '@/helpers/RequireAuth'
 
 import { IProduct } from '@/types/product.interface'
+
+import { store } from '@/store/store'
 
 import './index.scss'
 
@@ -72,6 +75,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<Provider store={store}>
+			<RouterProvider router={router} />
+		</Provider>
 	</React.StrictMode>
 )

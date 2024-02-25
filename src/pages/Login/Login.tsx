@@ -1,12 +1,15 @@
-import axios, { AxiosError } from 'axios'
-import { type FC, type FormEvent, useState } from 'react'
+import { type FC, type FormEvent, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button, Heading, Input } from '@/components'
 
-import { PREFIX } from '@/helpers/API'
+import {
+	clearLoginError,
+	login,
+	selectUser
+} from '@/store/features/user/userSlice'
 
-import { ILoginResponse } from '@/types/auth.interface'
+import { useAppDispatch, useAppSelector } from '@/hooks/redux.hooks'
 
 import styles from './Login.module.scss'
 
@@ -22,30 +25,23 @@ type LoginForm = {
 }
 
 const Login: FC<LoginProps> = () => {
-	const [error, setError] = useState<string | null>()
 	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
+	const { jwt, loginErrorMessage } = useAppSelector(selectUser)
+
+	useEffect(() => {
+		if (jwt) {
+			navigate('/')
+		}
+	}, [jwt, navigate])
 
 	const sendLogin = async (email: string, password: string) => {
-		try {
-			const { data } = await axios.post<ILoginResponse>(
-				`${PREFIX}/auth/login`,
-				{
-					email,
-					password
-				}
-			)
-			localStorage.setItem('jwt', data.access_token)
-			navigate('/')
-		} catch (error) {
-			if (error instanceof AxiosError) {
-				setError(error.response?.data.message)
-			}
-		}
+		dispatch(login({ email, password }))
 	}
 
 	const submit = async (event: FormEvent) => {
 		event.preventDefault()
-		setError(null)
+		dispatch(clearLoginError())
 		const target = event.target as typeof event.target & LoginForm
 		const { email, password } = target
 
@@ -55,7 +51,9 @@ const Login: FC<LoginProps> = () => {
 	return (
 		<div className={styles.login}>
 			<Heading>Вход</Heading>
-			{error && <div className={styles.error}>{error}</div>}
+			{loginErrorMessage && (
+				<div className={styles.error}>{loginErrorMessage}</div>
+			)}
 			<form
 				className={styles.form}
 				onSubmit={submit}
