@@ -68,8 +68,10 @@ export const Layout: FC<LayoutProps> = () => {
 							alt='Иконка корзины'
 						/>
 						Корзина
+						{items.length > 0 && (
+							<span className={styles['cart-count']}>{items.length}</span>
+						)}
 					</NavLink>
-					{items.length === 0 ? null : items.length}
 				</div>
 				<Button
 					className={styles.exit}
