@@ -4,6 +4,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 
 import { Button } from '@/components'
 
+import { selectCart } from '@/store/features/cart/cartSlice'
 import { getProfile, logout, selectUser } from '@/store/features/user/userSlice'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/redux.hooks'
@@ -16,6 +17,7 @@ export const Layout: FC<LayoutProps> = () => {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 	const { profile } = useAppSelector(selectUser)
+	const { items } = useAppSelector(selectCart)
 
 	const logoutStorage = () => {
 		dispatch(logout())
@@ -67,6 +69,7 @@ export const Layout: FC<LayoutProps> = () => {
 						/>
 						Корзина
 					</NavLink>
+					{items.length === 0 ? null : items.length}
 				</div>
 				<Button
 					className={styles.exit}

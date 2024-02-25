@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import { cartReducer } from '@/store/features/cart/cartSlice'
 import {
 	JWT_PERSISTENT_STATE,
 	userReducer
@@ -8,7 +9,8 @@ import { saveState } from '@/store/storage'
 
 export const store = configureStore({
 	reducer: {
-		user: userReducer
+		user: userReducer,
+		cart: cartReducer
 	}
 })
 

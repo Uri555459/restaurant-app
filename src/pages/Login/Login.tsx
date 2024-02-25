@@ -80,7 +80,7 @@ const Login: FC<LoginProps> = () => {
 
 			<div className={styles.links}>
 				<div>Нет аккаунта?</div>
-				<Link to='/auth/register'>Нет аккаунта? Зарегистрироваться</Link>
+				<Link to='/auth/register'>Зарегистрироваться</Link>
 			</div>
 		</div>
 	)
