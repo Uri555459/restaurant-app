@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { RouterProvider, createBrowserRouter, defer } from 'react-router-dom'
 
-import { Cart, Error, Login, Menu, Product, Register } from '@/pages'
+import { Cart, Error, Login, Menu, Product, Register, Success } from '@/pages'
 
 import { AuthLayout, Layout } from '@/layout'
 
@@ -33,6 +33,10 @@ const router = createBrowserRouter([
 						<Menu />
 					</Suspense>
 				)
+			},
+			{
+				path: '/success',
+				element: <Success />
 			},
 			{
 				path: '/cart',

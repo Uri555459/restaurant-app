@@ -2,9 +2,7 @@ import axios from 'axios'
 import { type FC, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { CartItem } from '@/components/CartItem/CartItem'
-
-import { Button, Heading } from '@/components'
+import { Button, CartItem, Heading } from '@/components'
 
 import { PREFIX } from '@/helpers/API'
 
@@ -29,12 +27,12 @@ const Cart: FC<CartProps> = () => {
 	const navigate = useNavigate()
 
 	const total = items
-		.map(i => {
-			const product = cartProducts.find(p => p.id === i.id)
+		.map(item => {
+			const product = cartProducts.find(product => product.id === item.id)
 			if (!product) {
 				return 0
 			}
-			return i.count * product.price
+			return item.count * product.price
 		})
 		.reduce((acc, i) => (acc += i), 0)
 
@@ -44,7 +42,7 @@ const Cart: FC<CartProps> = () => {
 	}
 
 	const loadAllItems = useCallback(async () => {
-		const res = await Promise.all(items.map(i => getItem(i.id)))
+		const res = await Promise.all(items.map(item => getItem(item.id)))
 		setCardProducts(res)
 	}, [items])
 
@@ -71,15 +69,15 @@ const Cart: FC<CartProps> = () => {
 	return (
 		<>
 			<Heading className={styles.heading}>Корзина</Heading>
-			{items.map(i => {
-				const product = cartProducts.find(p => p.id === i.id)
+			{items.map(item => {
+				const product = cartProducts.find(product => product.id === item.id)
 				if (!product) {
 					return
 				}
 				return (
 					<CartItem
 						key={product.id}
-						count={i.count}
+						count={item.count}
 						{...product}
 					/>
 				)
