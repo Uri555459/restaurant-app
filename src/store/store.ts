@@ -1,6 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import { cartReducer } from '@/store/features/cart/cartSlice'
+import {
+	CART_PERSISTENT_STATE,
+	cartReducer
+} from '@/store/features/cart/cartSlice'
 import {
 	JWT_PERSISTENT_STATE,
 	userReducer
@@ -16,6 +19,7 @@ export const store = configureStore({
 
 store.subscribe(() => {
 	saveState({ jwt: store.getState().user.jwt }, JWT_PERSISTENT_STATE)
+	saveState(store.getState().cart, CART_PERSISTENT_STATE)
 })
 
 export type RootState = ReturnType<typeof store.getState>
