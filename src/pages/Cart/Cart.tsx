@@ -82,36 +82,43 @@ const Cart: FC<CartProps> = () => {
 					/>
 				)
 			})}
-			<div className={styles.line}>
-				<div className={styles.text}>Итог</div>
-				<div className={styles.price}>
-					{total}&nbsp;<span>₽</span>
-				</div>
-			</div>
-			<hr className={styles.hr} />
-			<div className={styles.line}>
-				<div className={styles.text}>Доставка</div>
-				<div className={styles.price}>
-					{DELIVERY_FEE}&nbsp;<span>₽</span>
-				</div>
-			</div>
-			<hr className={styles.hr} />
-			<div className={styles.line}>
-				<div className={styles.text}>
-					Итог <span className={styles['total-count']}>({items.length})</span>
-				</div>
-				<div className={styles.price}>
-					{total + DELIVERY_FEE}&nbsp;<span>₽</span>
-				</div>
-			</div>
-			<div className={styles.checkout}>
-				<Button
-					appearance='big'
-					onClick={checkout}
-				>
-					оформить
-				</Button>
-			</div>
+			{items.length > 0 ? (
+				<>
+					<div className={styles.line}>
+						<div className={styles.text}>Итог</div>
+						<div className={styles.price}>
+							{total}&nbsp;<span>₽</span>
+						</div>
+					</div>
+					<hr className={styles.hr} />
+					<div className={styles.line}>
+						<div className={styles.text}>Доставка</div>
+						<div className={styles.price}>
+							{DELIVERY_FEE}&nbsp;<span>₽</span>
+						</div>
+					</div>
+					<hr className={styles.hr} />
+					<div className={styles.line}>
+						<div className={styles.text}>
+							Итог{' '}
+							<span className={styles['total-count']}>({items.length})</span>
+						</div>
+						<div className={styles.price}>
+							{total + DELIVERY_FEE}&nbsp;<span>₽</span>
+						</div>
+					</div>
+					<div className={styles.checkout}>
+						<Button
+							appearance='big'
+							onClick={checkout}
+						>
+							оформить
+						</Button>
+					</div>
+				</>
+			) : (
+				<div>Корзина пуста</div>
+			)}
 		</>
 	)
 }

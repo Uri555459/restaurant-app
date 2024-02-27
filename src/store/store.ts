@@ -4,6 +4,7 @@ import {
 	CART_PERSISTENT_STATE,
 	cartReducer
 } from '@/store/features/cart/cartSlice'
+import { productReducer } from '@/store/features/product/productSlice'
 import {
 	JWT_PERSISTENT_STATE,
 	userReducer
@@ -13,7 +14,8 @@ import { saveState } from '@/store/storage'
 export const store = configureStore({
 	reducer: {
 		user: userReducer,
-		cart: cartReducer
+		cart: cartReducer,
+		product: productReducer
 	}
 })
 
